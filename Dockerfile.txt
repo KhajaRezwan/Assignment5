@@ -1,0 +1,11 @@
+# First Stage: Builder
+FROM alpine:latest AS builder
+
+# Copy the data.txt file into the container at /tmp
+COPY data.txt /tmp/
+
+# Second Stage: Final Image
+FROM fedora:latest
+
+# Copy data.txt from the builder stage to the root of the final image
+COPY --from=builder /tmp/data.txt /data.txt
